@@ -1,6 +1,7 @@
+import redis
 import json
 import logging
-import redis
+
 
 from alpesproperties import bootstrap, config
 from alpesproperties.domain import commands
@@ -14,16 +15,16 @@ def main():
     logger.info("Redis pubsub starting")
     bus = bootstrap.bootstrap()
     pubsub = r.pubsub(ignore_subscribe_messages=True)
-    pubsub.subscribe("change_batch_quantity")
+    pubsub.subscribe("crear_propiedad")
 
     for m in pubsub.listen():
-        handle_change_batch_quantity(m, bus)
+        handle_crear_propiedad(m, bus)
 
 
-def handle_change_batch_quantity(m, bus):
+def handle_crear_propiedad(m, bus):
     logger.info("handling %s", m)
     data = json.loads(m["data"])
-    cmd = commands.ChangeBatchQuantity(ref=data["batchref"], qty=data["qty"])
+    cmd = commands.CrearPropiedad()
     bus.handle(cmd)
 
 

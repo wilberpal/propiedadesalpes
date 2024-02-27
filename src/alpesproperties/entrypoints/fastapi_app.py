@@ -8,18 +8,6 @@ app = FastAPI()
 bus = bootstrap.bootstrap()
 
 
-# @app.post("/add_batch")
-# def add_batch(request: Request):
-#     eta = request.json["eta"]
-#     if eta is not None:
-#         eta = datetime.fromisoformat(eta).date()
-#     cmd = commands.CreateBatch(
-#         request.json["ref"], request.json["sku"], request.json["qty"], eta
-#     )
-#     bus.handle(cmd)
-#     return "OK", 201
-
-
 @app.post("/propiedad")
 def addProperty_endpoint(request: Request):
     try:
